@@ -20,5 +20,9 @@ class MainActivity : AppCompatActivity() {
             intent = Intent(this,LifecyclesActivity::class.java)
             startActivity(intent)
         }
+        linkLiveDataDemo.setOnClickListener {
+            intent = Intent(this,com.zyh.firstlinecode.livedata.CountActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
