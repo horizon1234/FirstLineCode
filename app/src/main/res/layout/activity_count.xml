@@ -20,4 +20,13 @@
         android:layout_gravity="center_horizontal"
         android:text="Plus One" />
 
+    <Button
+        android:id="@+id/clearBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Clear" />
+
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>
