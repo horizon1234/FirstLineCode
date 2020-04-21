@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".livedata.CountActivity"/>
+        <activity android:name=".MapAndSwitchMap.CountActivity"/>
     </application>
 
 </manifest>

@@ -24,5 +24,9 @@ class MainActivity : AppCompatActivity() {
             intent = Intent(this,com.zyh.firstlinecode.livedata.CountActivity::class.java)
             startActivity(intent)
         }
+        linkSwitchDemo.setOnClickListener {
+            intent = Intent(this,com.zyh.firstlinecode.MapAndSwitchMap.CountActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

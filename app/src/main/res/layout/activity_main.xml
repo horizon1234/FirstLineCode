@@ -26,5 +26,11 @@
         android:layout_height="wrap_content"
         android:text="LiveData Demo"
         />
+    <Button
+        android:id="@+id/linkSwitchDemo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Switch Demo"
+        />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
