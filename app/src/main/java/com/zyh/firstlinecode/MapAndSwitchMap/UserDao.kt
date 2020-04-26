@@ -11,7 +11,7 @@ interface UserDao {
     @Update
     fun updateUser(user: User)
 
-    @Query("select * from" + "User")
+    @Query("select * from User")
     fun loadAllUsers(): List<User>
 
     @Query("select * from User where age > :age")

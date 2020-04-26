@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.zyh.firstlinecode.R
 import kotlinx.android.synthetic.main.activity_count.*
+import kotlin.concurrent.thread
 
 class CountActivity : AppCompatActivity() {
 
@@ -45,8 +47,36 @@ class CountActivity : AppCompatActivity() {
         })
 
         getUserBtn.setOnClickListener {
-            val userId = (0 .. 1000).random().toString()
+            val userId = (0..1000).random().toString()
             viewModel.getUser(userId)
+        }
+
+        val userDao = AppDatabase.getDatabase(this).UserDao()
+        val user1 = User("Tom", "Battery", 40)
+        val user2 = User("Tom", "Hanks", 63)
+        addDataBtn.setOnClickListener {
+            thread {
+                user1.id = userDao.insertUser(user1)
+                user2.id = userDao.insertUser(user2)
+            }
+        }
+        updateDataBtn.setOnClickListener {
+            thread {
+                user1.age = 42
+                userDao.updateUser(user1)
+            }
+        }
+        deleteDataBtn.setOnClickListener {
+            thread {
+                userDao.deleteUserByLastName("Hanks")
+            }
+        }
+        queryDatBtn.setOnClickListener {
+            thread {
+                for (user in userDao.loadAllUsers()) {
+                    Log.d("zyh", user.toString())
+                }
+            }
         }
     }
 
