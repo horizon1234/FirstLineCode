@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  * 2、包含哪些实体类
  * 3、已经提供dao层的访问实例
  * */
-@Database(version = 2, entities = [User::class, Book::class])
+@Database(version = 3, entities = [User::class, Book::class])
 abstract class AppDatabase : RoomDatabase() {
     abstract fun UserDao(): UserDao
 
@@ -25,6 +25,12 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("create table " +
                         "Book(id integer primary key autoincrement not null,name text not null,pages integer not null)")
+            }
+        }
+
+        val MIGRATION_2_3 = object:Migration(2,3){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("alter table Book add column author text not null default 'unknown'")
             }
         }
 
