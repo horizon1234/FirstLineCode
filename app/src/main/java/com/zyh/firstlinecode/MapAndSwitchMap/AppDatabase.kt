@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
  * 这一部分写法非常固定，只需要定义好3个部分：
@@ -11,11 +13,21 @@ import androidx.room.RoomDatabase
  * 2、包含哪些实体类
  * 3、已经提供dao层的访问实例
  * */
-@Database(version = 1, entities = [User::class])
+@Database(version = 2, entities = [User::class, Book::class])
 abstract class AppDatabase : RoomDatabase() {
     abstract fun UserDao(): UserDao
 
+    abstract fun BookDao(): BookDao
+
     companion object {
+
+        val MIGRATION_1_2 = object : Migration(1,2){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("create table " +
+                        "Book(id integer primary key autoincrement not null,name text not null,pages integer not null)")
+            }
+        }
+
         private var instance: AppDatabase? = null
 
         @Synchronized
@@ -27,7 +39,8 @@ abstract class AppDatabase : RoomDatabase() {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "app_database"
-            ).build().apply {
+            ).addMigrations(MIGRATION_1_2)
+                .build().apply {
                 instance = this
             }
         }
